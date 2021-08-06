@@ -1,3 +1,9 @@
+<?php if (isset($_COOKIE["prisijungti"]) && isset($_COOKIE['teises'])) {
+
+header("Location: manopaskyra.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

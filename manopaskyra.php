@@ -8,7 +8,7 @@
 
 if(isset($_COOKIE['prisijungti']) && isset($_COOKIE['teises'])){
     echo "Sveikas atvykes, ". $_COOKIE['prisijungti'];
-    echo '<form action="manopaskyra.php" method="get">';
+    echo '<form action="login.php" method="get">';
     echo '<button type="submit" name="atsijungti">Atsijungti</button>
 </form>';
 

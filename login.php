@@ -1,4 +1,3 @@
-
 <?php
 if (isset($_GET["prisijungti"])) {
 
@@ -89,7 +88,7 @@ foreach ($registruotiVartotojai as $elementas) {
 }
 
 if ($teisingasDuomuo) {
-    echo "Sveikas atvykes, " . $laikinasis_vardas . " " . $laikinasis_teises;
+    // echo "Sveikas atvykes, " . $laikinasis_vardas . " " . $laikinasis_teises;
     setcookie("prisijungti", $laikinasis_vardas, time() + 3600 * 24, "/");
     setcookie("teises", $laikinasis_teises, time() + 3600 * 24, "/");
     header("Location: login.php");
@@ -101,26 +100,13 @@ if ($teisingasDuomuo) {
 ?>
 <?php 
 
-if(isset($_COOKIE['prisijungti']) && isset($_COOKIE['teises'])){
-    echo "Sveikas atvykes, ". $_COOKIE['prisijungti'];
-    echo '<form action="login.php" method="get">';
-    echo '<button type="submit" name="atsijungti">Atsijungti</button>
-</form>';
-
-
 if(isset($_GET["atsijungti"])) {
-
-    //Cookies istrynimas ir tada sugrizimas atgal i index.php
 
     setcookie("prisijungti", "", time() - 3600 * 24, "/");
     setcookie("teises", "", time() - 3600 * 24, "/");
     header('Location: login.php');
 
 }
-
-}
-
-
 
 ?>
 <!DOCTYPE html>
@@ -379,7 +365,8 @@ if(isset($_GET["atsijungti"])) {
         <div class="right-column">
             <div class="right-column-container">
                 <span class="close">x</span>
-                <?php if (!isset($_COOKIE["prisijungti"])) { ?>
+           
+                <?php if (!isset($_COOKIE["prisijungti"]) && !isset($_COOKIE['teises'])) { ?>
                 <form action="login.php" method="get">
                     <div class="input">
                     <label for="username">Username</label>
@@ -396,8 +383,15 @@ if(isset($_GET["atsijungti"])) {
                     <p>or</p>
                     <a href="#">Forgot password</a>
                 </div>
+                                 
+                <?php }else {
+                    echo "<p>Sveikas atvykes, ". $_COOKIE['prisijungti']." Jūsų teisės: ".$_COOKIE['teises']. "</p>";
+                    echo '<form action="login.php" method="get">';
+                    echo '<button class="btn" type="submit" name="atsijungti">Atsijungti</button>
+                    </form>';
+                }?>
+
                 
-                <?php } else ?>
             </div>
         </div>
     </div>
